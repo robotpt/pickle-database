@@ -1,4 +1,4 @@
-import utils
+import robotpt_common_utils
 
 
 class TestedSetterAndGetter:
@@ -45,8 +45,8 @@ class TestedSetterAndGetter:
         if tests is ():
             tests = None
         if tests is not None:
-            tests = utils.lists.make_sure_is_iterable(tests)
-            self._tests = utils.lists.append_to_list(
+            tests = robotpt_common_utils.lists.make_sure_is_iterable(tests)
+            self._tests = robotpt_common_utils.lists.append_to_list(
                 self._tests,
                 tests,
                 callable
@@ -54,7 +54,7 @@ class TestedSetterAndGetter:
 
     def _is_pass_tests(self, value):
         if len(self._tests) > 0:
-            return utils.lists.is_object_pass_tests(value, *self._tests)
+            return robotpt_common_utils.lists.is_object_pass_tests(value, *self._tests)
         else:
             return True
 

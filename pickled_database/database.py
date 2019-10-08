@@ -5,7 +5,7 @@ import os
 import pprint
 
 from pickled_database.tested_setter_and_getter import TestedSetterAndGetter
-import utils
+import robotpt_common_utils
 
 
 class PickledDatabase:
@@ -21,7 +21,7 @@ class PickledDatabase:
     def create_key(self, key, value=None, tests=()):
         if key in self:
             raise KeyError("Key already exists")
-        tests = utils.lists.make_sure_is_iterable(tests)
+        tests = robotpt_common_utils.lists.make_sure_is_iterable(tests)
 
         db = self._load_database()
         db[key] = TestedSetterAndGetter(value, *tests)
