@@ -1,0 +1,8 @@
+bin/
+venv/
+__pycache__/
+.idea/
+
+*.pkl
+*.pyc
+.DS_STORE
