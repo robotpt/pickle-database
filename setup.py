@@ -13,6 +13,7 @@ setup(
   install_requires=[
     'dill',
     'robotpt_common_utils',
+    'filelock',
   ],
   classifiers=[
     'Development Status :: 3 - Alpha',
