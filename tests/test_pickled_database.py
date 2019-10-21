@@ -1,4 +1,5 @@
 import unittest
+import datetime
 
 from pickled_database.database import PickledDatabase
 
@@ -110,4 +111,28 @@ class TestPickledDatabaseA(unittest.TestCase):
         self.assertFalse(self.db.is_set('key'))
         self.db.set('key', 'hi')
         self.assertTrue(self.db.is_set('key'))
+
+    def test_last_set(self):
+
+        key = 'key'
+        self.db.create_key(key)
+
+        for _ in range(10):
+            self.assertIsNone(
+                self.db.get_last_set(key)
+            )
+            self.db.set(key, 1)
+            self.assertIsNotNone(
+                self.db.get_last_set(key)
+            )
+            self.assertGreaterEqual(
+                datetime.datetime.now(),
+                self.db.get_last_set(key)
+            )
+            self.db.clear_value(key)
+            self.assertIsNone(
+                self.db.get_last_set(key)
+            )
+
+
 

@@ -1,4 +1,5 @@
 import unittest
+import datetime
 from pickled_database.tested_setter_and_getter import TestedSetterAndGetter
 
 
@@ -35,7 +36,7 @@ class TestTestedSetterAndGetter(unittest.TestCase):
             )
 
         self.assertTrue(sg.is_set)
-        sg.reset_value()
+        sg.clear_value()
         self.assertFalse(sg.is_set)
         self.assertRaises(
             ValueError,
@@ -58,4 +59,24 @@ class TestTestedSetterAndGetter(unittest.TestCase):
                 ValueError,
                 sg.set,
                 v
+            )
+
+    def test_last_set(self):
+        sg = TestedSetterAndGetter()
+
+        for _ in range(10):
+            self.assertIsNone(
+                sg.get_last_set()
+            )
+            sg.set(1)
+            self.assertIsNotNone(
+                sg.get_last_set()
+            )
+            self.assertGreaterEqual(
+                datetime.datetime.now(),
+                sg.get_last_set()
+            )
+            sg.clear_value()
+            self.assertIsNone(
+                sg.get_last_set()
             )

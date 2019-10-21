@@ -43,6 +43,15 @@ class PickledDatabase:
         except ValueError as e:
             raise e
 
+    def get_last_set(self, key):
+        try:
+            db = self._load_database()
+            return db[key].get_last_set()
+        except KeyError as e:
+            raise e
+        except ValueError as e:
+            raise e
+
     def is_set(self, key):
         if key not in self:
             raise KeyError(f"'{key}' isn't in the database")
@@ -60,6 +69,14 @@ class PickledDatabase:
         db = self._load_database()
         try:
             db.pop(key)
+        except KeyError:
+            pass
+        self._save_database(db)
+
+    def clear_value(self, key):
+        db = self._load_database()
+        try:
+            db[key].clear_value()
         except KeyError:
             pass
         self._save_database(db)

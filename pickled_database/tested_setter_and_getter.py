@@ -1,4 +1,5 @@
 import robotpt_common_utils
+import datetime
 
 
 class TestedSetterAndGetter:
@@ -9,6 +10,7 @@ class TestedSetterAndGetter:
     """
     def __init__(self, value=None, *tests):
         self._is_set = False
+        self._last_set = None
 
         self._tests = []
         self.append_tests(*tests)
@@ -23,9 +25,16 @@ class TestedSetterAndGetter:
         else:
             return self._value
 
+    def get_last_set(self):
+        if self.is_set:
+            return self._last_set
+        else:
+            return None
+
     def set(self, value):
         if self._is_pass_tests(value):
             self._value = value
+            self._last_set = datetime.datetime.now()
             self._is_set = True
         else:
             raise ValueError("Must pass all tests to set new value")
@@ -34,8 +43,9 @@ class TestedSetterAndGetter:
     def is_set(self):
         return self._is_set
 
-    def reset_value(self):
+    def clear_value(self):
         self._value = None
+        self._last_set = None
         self._is_set = False
 
     def clear_tests(self):
@@ -57,7 +67,3 @@ class TestedSetterAndGetter:
             return robotpt_common_utils.lists.is_object_pass_tests(value, *self._tests)
         else:
             return True
-
-
-
-
