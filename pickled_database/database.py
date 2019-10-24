@@ -18,7 +18,19 @@ class PickledDatabase:
     def __init__(self, database_path="database.pkl"):
         self._path = database_path
 
-    def create_key(self, key, value=None, tests=()):
+    def create_key(self, key, value=None, tests=(), exists_ok=False):
+        if exists_ok:
+            self.create_key_if_not_exists(key, value, tests)
+        else:
+            self._create_key(key, value, tests)
+
+    def create_key_if_not_exists(self, key, value=None, tests=()):
+        try:
+            self.create_key(key, value, tests)
+        except KeyError:
+            pass
+
+    def _create_key(self, key, value=None, tests=()):
         if key in self:
             raise KeyError("Key already exists")
         tests = lists.make_sure_is_iterable(tests)
