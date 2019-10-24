@@ -1,5 +1,6 @@
 import unittest
 import datetime
+import os
 
 from pickled_database.database import PickledDatabase
 
@@ -7,8 +8,12 @@ from pickled_database.database import PickledDatabase
 class TestPickledDatabaseA(unittest.TestCase):
 
     def setUp(self):
-        self.db = PickledDatabase()
+        self.file = 'test_db.pkl'
+        self.db = PickledDatabase(self.file)
         self.db.clear_database()
+
+    def tearDown(self) -> None:
+        os.remove(self.file)
 
     def test_key_creation(self):
         for k in ['key1', 'key2']:
