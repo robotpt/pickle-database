@@ -18,6 +18,10 @@ class PickledDatabase:
     def __init__(self, database_path="database.pkl"):
         self._path = database_path
 
+        # create a file for the database if none exists
+        if not os.path.exists(self._path):
+            self._save_database(dict())
+
     def create_key(self, key, value=None, tests=(), exists_ok=False):
         if exists_ok:
             self.create_key_if_not_exists(key, value, tests)

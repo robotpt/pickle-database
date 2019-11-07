@@ -1,9 +1,11 @@
 from pickled_database import PickledDatabase
 import datetime
+import os
 
 
 path = "pickled_database.pkl"
 db1 = PickledDatabase(path)
+assert os.path.exists(path)  # file is created on initialization
 db1.clear_database()
 
 # Any database referencing the same file will always have the same state
@@ -16,7 +18,7 @@ db2.set('key2', 'value')
 assert db2.get('key2') == 'value'
 
 # create a key with a value
-db2.create_key('key3', 4)
+db2.create_key('key3', 3)
 # check when a key was last set
 assert datetime.datetime.now() > db2.get_last_set('key3')
 
