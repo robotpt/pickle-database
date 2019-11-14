@@ -55,18 +55,18 @@ class PickledDatabase:
             db = self._load_database()
             return db[key].get()
         except KeyError as e:
-            raise e
+            raise KeyError(f"For key '{key}'") from e
         except ValueError as e:
-            raise e
+            raise ValueError(f"For key '{key}'") from e
 
     def get_last_set(self, key):
         try:
             db = self._load_database()
             return db[key].get_last_set()
         except KeyError as e:
-            raise e
+            raise KeyError(f"For key '{key}'") from e
         except ValueError as e:
-            raise e
+            raise ValueError(f"For key '{key}'") from e
 
     def is_set(self, key):
         if key not in self:
