@@ -1,7 +1,7 @@
 README
 ======
-[![Build Status](https://travis-ci.com/robotpt/pickle-database.svg?branch=master)](https://travis-ci.com/robotpt/pickle-database)
 
+[![Build Status](https://travis-ci.com/robotpt/pickle-database.svg?branch=master)](https://travis-ci.com/robotpt/pickle-database)
 [![Downloads](https://pepy.tech/badge/pickle-database)](https://pepy.tech/project/pickle-database)
 
 A database that saves its state in a file every time it is modified.
