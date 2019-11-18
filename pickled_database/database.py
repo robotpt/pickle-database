@@ -47,8 +47,11 @@ class PickledDatabase:
         if key not in self:
             raise KeyError("Create keys with the `create_key` method")
         db = self._load_database()
-        db[key].set(value)
-        self._save_database(db)
+        try:
+            db[key].set(value)
+            self._save_database(db)
+        except ValueError as e:
+            raise ValueError(f"'{value}' doesn't pass the tests for '{key}'") from e
 
     def get(self, key):
         try:
