@@ -110,8 +110,15 @@ class PickledDatabase:
         if not pathlib.Path(self._path).exists():
             return dict()
         else:
-            with open(self._path, 'rb') as f:
-                db = pickle.load(f)
+            read_attempts = 5
+            for i in range(1, read_attempts+1):
+                try:
+                    with open(self._path, 'rb') as f:
+                        db = pickle.load(f)
+                        break
+                except EOFError as e:
+                    if i == read_attempts:
+                        raise EOFError from e
             return db
 
     def _save_database(self, db):
